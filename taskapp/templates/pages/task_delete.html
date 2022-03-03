@@ -1,0 +1,14 @@
+{% extends "common.html" %}
+{% block content %}
+
+<form method="post">
+	<div class="row">
+		<div class="col-12">
+			{% csrf_token %}
+			<p> 할 일 "{{ object.title }}"를 삭제하시겠습니까?</p>
+			<button type="submit" class="btn btn-primary float-right"> 삭제 </button>
+		</div>
+	</div>
+</form>
+
+{% endblock %}

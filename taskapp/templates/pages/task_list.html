@@ -1,0 +1,63 @@
+{% extends "common.html" %}
+{% load pagination_tags %}
+
+{% block content %}
+<div class="row row-cols-2 row-cols-md-4 g-4 mt-2">
+	{% for item in paging %}
+	<div class="col">
+		<div class="card text-white bg-primary mb-3">
+			<div class="card-header">
+				{{ item.type }}
+				<a href="{% url 'delete-task' item.id %}">
+					<button class="btn btn-outline-dark float-right btn-sm">
+						<i class="bi bi-x-lg"></i>
+					</button>
+				</a>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">{{ item.title }}</h5>
+				<p class="card text">
+					<span class="badge bg-light text-dark">
+						{{ item.due|date:'Y년 m월 d일 H시 i분'}}까지
+					</span>
+				</p>
+			</div>
+			<div class="card-footer">
+				<a href="{% url 'view-task' item.id %}">
+					<button class="btn btn-dark float-right">보기</button>
+				</a>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+<div class="row mt-4">
+	<nav class="col-12">
+		<ul class="pagination justify-content-center">
+			{% if paging.has_previous %}
+			<li class="page-item">
+				<a class="page-link" href="?page={{ paging.previous_page_number}}">이전</a>
+			</li>
+			{% endif %}
+
+			{% for page in paging|slice_visible_pages %}
+			{% if paging.number == page %}
+			<li class="page-item active">
+			{% else %}
+			<li class="page-item">
+			{% endif %}
+				<a class="page-link" href="?page={{ page }}">
+					{{ page }}
+				</a>
+			</li>
+			{% endfor %}
+
+			{% if paging.has_next %}
+			<li class="page-item">
+				<a class="page-link" href="?page={{ paging.next_page_number}}">다음</a>
+			</li>
+			{% endif %}
+		</ul>
+	</nav>
+</div>
+{% endblock %}

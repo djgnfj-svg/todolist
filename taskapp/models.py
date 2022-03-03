@@ -18,8 +18,8 @@ class Task(models.Model):
 		max_length=10,
 		default=TaskType.JOB
 	)
-	due = models.DateTimeField(null=True)
-	create_at = models.DateTimeField(auto_now_add=True, null=False)
+	due = models.DateTimeField(null=False)
+	created_at = models.DateTimeField(auto_now_add=True, null=False)
 
 class ChecklistItem(models.Model):
 	task=models.ForeignKey(Task, on_delete=models.CASCADE)

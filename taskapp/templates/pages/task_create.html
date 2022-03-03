@@ -1,0 +1,21 @@
+{% extends "common.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form method="post" action="{% url 'create-task'%}">
+	<div class="row">
+		<div class="col-12">
+			{% csrf_token %}
+			{{ form|crispy }}
+			<button type="submit"> 추가하기 </button>
+		</div>
+	</div>
+</form>
+
+<script>
+	window.onload = function() {
+		flatpickr('input[name="due"]', {enableTime:true});
+	}
+</script>
+
+{% endblock %}
